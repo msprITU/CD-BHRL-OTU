@@ -1,0 +1,100 @@
+#!/usr/bin/env ipython
+
+# FULLY AUTOMATED EVALUATION WITH FINE TUNING
+import os
+
+# SED PARAMETER FUNCTIONS
+# Change POSITION_MULTIPLIER
+CONFIG_FILE="/root/BHRL/mmdet/datasets/one_shot_voc.py"
+def setSedPositionMultiplier(multiplier_index, enableLogging=True):
+  PARAMETER="POSITION_MULTIPLIER"
+  !sed -i 's/SED_PARAMETER_{PARAMETER} = .*/SED_PARAMETER_{PARAMETER} = {multiplier_index}/' {CONFIG_FILE}
+  if enableLogging:
+    !grep "SED_PARAMETER_{PARAMETER}" {CONFIG_FILE}
+def setSedClasses(dataset_name, enableLogging=True):
+  if dataset_name == "DIOR":
+    CLASSLIST = '("airplane", "airport", "baseballfield", "basketballcourt", "bridge", "chimney", "dam", "Expressway-Service-area", "Expressway-toll-station", "golffield", "groundtrackfield", "harbor", "overpass", "ship", "stadium", "storagetank", "tenniscourt", "trainstation", "vehicle", "windmill")'
+    SPLITLIST = '[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]'
+  elif dataset_name == "ArToxOr" or dataset_name == "ArTaxOr":
+    CLASSLIST = '("Araneae", "Coleoptera", "Diptera", "Hemiptera", "Hymenoptera", "Lepidoptera", "Odonata")'
+    SPLITLIST = '[1, 2, 3, 4, 5, 6, 7]'
+  elif dataset_name == "UODD":
+    CLASSLIST = '("0B", "1B", "2B")'
+    SPLITLIST = '[1, 2, 3]'
+  elif dataset_name == "VOT":
+    CLASSLIST = '("aeroplane", "bicycle", "bird", "boat", "bottle", "bus", "car", "cat", "chair", "cow", "diningtable", "dog", "horse", "motorbike", "person", "pottedplant", "sheep", "sofa", "train", "tvmonitor")'
+    SPLITLIST = '[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]'
+  PARAMETER="CLASSES"
+  !sed -i 's/SED_PARAMETER_{PARAMETER} = .*/SED_PARAMETER_{PARAMETER} = {CLASSLIST}/' {CONFIG_FILE}
+  PARAMETER2="SELF_SPLIT"
+  !sed -i 's/SED_PARAMETER_{PARAMETER2} = .*/SED_PARAMETER_{PARAMETER2} = {SPLITLIST}/' {CONFIG_FILE}
+  if enableLogging:
+    !grep "SED_PARAMETER_{PARAMETER}" {CONFIG_FILE}
+    !grep "SED_PARAMETER_{PARAMETER2}" {CONFIG_FILE}
+
+
+%cd /root/BHRL
+
+item_ = ["VOT"] #, "DIOR", "UODD"] # This datasets will be evaluated
+for item in item_:
+  # CLASS_ = ["aeroplane", "ball", "bird", "boat", "bull", "car", "cat", "deer", "dog", "dragon", "face", "helicopter", "parachute", "person"] # and cat
+  # CLASS_ = ("ballet", "bicycle", "bike1", "car1", "car3", "car6", "car8", "car9", "car16", "carchase", "cat1", "cat2", "dog", "f1", "following", "freesbiedog", "group1", "group2", "group3", "horseride", "kitesurfing", "liverRun", "longboard", "nissan", "person2", "person4", "person5", "person7", "person14", "person17", "person19", "person20", "rollerman", "skiing", "sup", "tightrope", "volkswagen", "warmup", "wingsuit", "yamaha")
+  CLASS_ = ["aeroplane", "ball", "bird", "boat", "bull", "car", "cat", "deer", "dog", "dragon", "face", "helicopter", "parachute", "person"] # and cat
+  #CLASS_ = ("person2", "person4", "person5", "person7", "person14", "person17", "person19", "person20", "rollerman", "skiing", "sup", "tightrope", "volkswagen", "warmup", "wingsuit", "yamaha")
+  # CLASS_ = ["person19", "person20", "rollerman", "skiing", "sup", "tightrope", "volkswagen", "warmup", "wingsuit", "yamaha"]
+
+  setSedClasses(item) # Automatically configure dataloader for selected dataset
+  i_=[1,2,3,4,5]
+  split = [1,2,3,4] 
+  for i in i_:
+    setSedPositionMultiplier(i-1) # Automatically set proportional referance images per run
+    for split_ in split:
+      for class_ in CLASS_:
+          folder_path="/root/BHRL/vot_results/init_frame_ft/coco/logs/{}".format(item)
+          if not os.path.exists(folder_path):
+              os.makedirs(folder_path)
+              print(f"Folder '{folder_path}' created")
+          else:
+              print(f"Folder '{folder_path}' already exists")
+
+          # model weights will be saved here, change accordingly
+          folder_path=f"/root/BHRL/work_dirs/vot/BHRL/first_images_seperate/split{split_}/{item.lower()}_{class_}_{i}"
+          if not os.path.exists(folder_path):
+              os.makedirs(folder_path)
+              print(f"Folder '{folder_path}' created")
+          else:
+              print(f"Folder '{folder_path}' already exists")
+
+          # logs and results will be saved here, change accordingly
+          train_log_file = f"/root/BHRL/vot_results/init_frame_ft/coco/train_{item.lower()}_{class_}_{split_}_{i}.out"
+          log_file = f"/root/BHRL/vot_results/init_frame_ft/coco/logs/{item}/{item.lower()}_{class_}_{split_}_run_num_{i}.out"
+          ann_file = f"/root/BHRL/{item.lower()}_annotation/JSON_CLASS_BASED_FINAL/{class_}.json"
+          #ann_file = f"/root/BHRL/{item.lower()}_annotation/instances_test.json"
+
+          result_file = f"/root/BHRL/vot_results/init_frame_ft/coco/results/{item.lower()}_{class_}_{split_}_{i}"
+
+          # Construct the command string using the formatted file paths and other parameters
+          cmd = f"""
+          echo EVALUATION OF {item} | tee -a {log_file}
+          python tools/train.py \
+              --resume_from checkpoints/model_split{split_}.pth \
+              --config configs/vot/UODD2.py \
+              --seq_name {item} \
+              --no-validate \
+              --ann_file /root/BHRL/{item.lower()}_annotation/JSON_CLASS_BASED_FINAL/ft/{class_}_{i}_ft.json \
+              --seq_img_id 0 \
+              --work_dir /root/BHRL/work_dirs/vot/BHRL/first_images_seperate/split{split_}/{item.lower()}_{class_}_{i} 2>&1 | tee -a {train_log_file}
+
+          python tools/test.py \
+              --config "/root/BHRL/configs/vot/UODD2.py" \
+              --seq_name {item} \
+              --part 1 \
+              --ann_file {ann_file} \
+              --checkpoint /root/BHRL/work_dirs/vot/BHRL/first_images_seperate/split{split_}/{item.lower()}_{class_}_{i}/epoch_109.pth \
+              --run_num 1 \
+              --eval bbox \
+              --result_file {result_file} 2>&1 | tee -a {log_file}
+          """
+
+          # Execute the constructed command
+          !{cmd}

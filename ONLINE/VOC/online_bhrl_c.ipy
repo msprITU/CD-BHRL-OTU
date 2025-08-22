@@ -1,0 +1,49 @@
+#!/usr/bin/env ipython
+
+%cd /root/BHRL
+import os
+#items = ["ballet", "bicycle", "following", "bike1", "bird1", "boat", "girl", "bull", "group1", "rollerman", "sitcom", "group2", "skiing", "group3", "sup", "helicopter", "tightrope", "cat1", "horseride", "uav1", "cat2", "kitesurfing", "volkswagen", "deer", "liverRun", "warmup", "dog", "longboard", "wingsuit", "dragon", "nissan", "yamaha", "f1", "parachute"]
+#items = ["warmup"]
+#items = ["nissan", "parachute", "person2", "person4", "person5", "person7", "person14", "person17", "person19", "person20", "rollerman", "sitcom", "skiing", "sup", "tightrope", "uav1", "volkswagen", "warmup", "yamaha"]
+items = ["ballet", "bicycle", "bike1", "bird1", "boat", "bull", "car1", "car16", "car3", "car6", "car8", "car9", "cat1", "cat2", "deer", "dog", "dragon", "f1", "freesbiedog", "freestyle", "group1", "group2", "group3", "helicopter", "kitesurfing", "longboard", "nissan", "parachute", "person14", "person17", "person19", "person2", "person20", "person4", "person5", "person7", "rollerman", "sitcom", "skiing", "sup", "tightrope", "uav1", "volkswagen", "warmup", "wingsuit", "yamaha"]
+
+split = "voc"
+
+for item in items:
+  i=1
+  folder_path="/root/BHRL/vot_results/init_frame_ft/coco/logs/VOT_ORIGINAL/{}". format(split)
+  if not os.path.exists(folder_path):
+      os.makedirs(folder_path)
+      print(f"Folder '{folder_path}' created")
+  else:
+      print(f"Folder '{folder_path}' already exists")
+
+  # model weights will be saved here, change accordingly
+  folder_path="/root/BHRL/work_dirs/vot/BHRL/first_images_seperate/VOT_ORIGINAL/{}/". format(split)
+  if not os.path.exists(folder_path):
+      os.makedirs(folder_path)
+      print(f"Folder '{folder_path}' created")
+  else:
+      print(f"Folder '{folder_path}' already exists")
+
+  # logs and results will be saved here, change accordingly
+  log_file = f"/root/BHRL/vot_results/init_frame_ft/coco/logs/VOT_ORIGINAL/{split}/{item}_run_num_{i}.out"
+  ann_file = f"/root/BHRL/vot_annotation/{item}/vot_{item}_test.json"
+  result_file = f"/root/BHRL/vot_results/init_frame_ft/coco/results/vot_original_{item}_{split}"
+
+  # Construct the command string using the formatted file paths and other parameters
+  cmd = f"""
+  echo EVALUATION OF {item} | tee -a {log_file}
+  python tools/test.py \
+      --config "/root/BHRL/configs/voc/BHRL.py" \
+      --seq_name {item} \
+      --part 1 \
+      --ann_file {ann_file} \
+      --checkpoint checkpoints/model_{split}.pth \
+      --run_num {i} \
+      --eval bbox \
+      --result_file {result_file} 2>&1 | tee -a {log_file}
+  """
+
+  # Execute the constructed command
+  !{cmd}

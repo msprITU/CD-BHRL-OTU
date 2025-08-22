@@ -1,0 +1,20 @@
+#!/usr/bin/env ipython
+
+%cd /root/BHRL
+!apt-get update && apt-get install -y build-essential python3-dev
+%cd /root/BHRL
+!pip install -r requirements/build.txt
+%cd /root/BHRL/mmcv
+!pip install -r requirements/optional.txt
+!pip install -e . -v
+!pip install --upgrade pip setuptools wheel
+!apt-get update
+!apt-get install build-essential python3-dev
+!pip install wheel
+!pip install mmdet
+!pip install mmcv-full
+%cd /root/BHRL
+!pip install -v -e .
+
+!cp /root/BHRL/modified_scripts/distributed.py /usr/local/lib/python3.10/dist-packages/mmcv/parallel/distributed.py
+!cp /root/BHRL/modified_scripts/_functions.py /usr/local/lib/python3.10/dist-packages/torch/nn/parallel/_functions.py
