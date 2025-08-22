@@ -54,4 +54,27 @@ The annotations of VOT dataset is already downloaded. To download video files, u
 ipython 1-VOTDownload.ipy
 ```
 > **_Note:_** 1-VOTDownload.ipy script automatically downloads the videos written in [BHRL/VOTIMAGES/vot_videos.txt](https://raw.githubusercontent.com/msprITU/CD-BHRL-OTU-CORE/refs/heads/master/VOTIMAGES/vot_videos.txt)
+### ArTaxOr
+- Download ArTaxOr dataset from [here](https://drive.google.com/file/d/1Tgd9xaOt9D60FJgGt7Rs0OspZwNk8bX-/view?usp=sharing)
+- Move test directory to /root/BHRL/data/ARTAXOR/test with
+```bash
+mkdir -p /root/BHRL/data/ARTOXOR
+mv test /root/BHRL/data/ARTOXOR
+```
+
+### DIOR
+- Download DIOR dataset from [here](https://www.kaggle.com/datasets/shuaitt/diordata)
+- Move images directory to /root/BHRL/data/DIOR/test with
+```bash
+mkdir -p /root/BHRL/data/DIOR
+mv images /root/BHRL/data/DIOR/test
+```
+
+### UODD
+- Download UODD dataset from this [repository](https://github.com/LehiChiang/Underwater-object-detection-dataset)
+- Move imgs directory to /root/BHRL/data/UODD with
+```bash
+mkdir -p /root/BHRL/data/UODD
+mv imgs /root/BHRL/data/UODD/imgs
+```
 
