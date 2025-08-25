@@ -33,42 +33,40 @@ pip install gdown
 # Not important for now
 if [[ $SPLITNO == "all" ]]; then
   echo "Downloading all BHRL pretrained models"
-  gdown https://drive.google.com/uc?id=1tl7O7m7SAaBZIi0u-z4uFUNFwUtoVm3o # Split 1 model
-  gdown https://drive.google.com/uc?id=1D-PUQPH5NELTf52xUpGXO5jfxpa76pc8 # Split 2 model
-  gdown https://drive.google.com/uc?id=1GRyXANf60WaJp7UMqTEAGnUxftm_QLrG # Split 3 model
-  gdown https://drive.google.com/uc?id=1sVSDI0aXNIPTgOPFDhpndcTwRR6mSlSU # Split 4 model
-  gdown https://drive.google.com/uc?id=1TdmOfNoAYe9HTXozeBsG9inwyUS2J-az # VOT     model
+  gdown https://drive.google.com/uc?id=1r1x1vRdehtpjonsvNysRy2SL3b074Vik # Split 1 model
+  gdown https://drive.google.com/uc?id=1ldKw9BJArnqEKTH-caNFVovKUKIHSh6y # Split 2 model
+  gdown https://drive.google.com/uc?id=1JBgrmgw1hFji4jB-Nib_uY9z5BfY0hzi # Split 3 model
+  gdown https://drive.google.com/uc?id=1iFmAkecLDCjJ_bFFSyn_orpHdQXyhv2g # Split 4 model
+  gdown https://drive.google.com/uc?id=12mNpnkLe8Or32GpntLMEL8HCI9nNi4KM # VOT     model
 elif [[ $SPLITNO == "s1" ]];then
   echo "Downloading Split 1 BHRL pretrained model"
-  gdown https://drive.google.com/uc?id=1tl7O7m7SAaBZIi0u-z4uFUNFwUtoVm3o # Split 1 model
+  gdown https://drive.google.com/uc?id=1r1x1vRdehtpjonsvNysRy2SL3b074Vik # Split 1 model
 elif [[ $SPLITNO == "s2" ]];then
   echo "Downloading Split 2 BHRL pretrained model"
-  gdown https://drive.google.com/uc?id=1D-PUQPH5NELTf52xUpGXO5jfxpa76pc8 # Split 2 model
+  gdown https://drive.google.com/uc?id=1ldKw9BJArnqEKTH-caNFVovKUKIHSh6y # Split 2 model
 elif [[ $SPLITNO == "s3" ]];then
   echo "Downloading Split 3 BHRL pretrained model"
-  gdown https://drive.google.com/uc?id=1GRyXANf60WaJp7UMqTEAGnUxftm_QLrG # Split 3 model
+  gdown https://drive.google.com/uc?id=1JBgrmgw1hFji4jB-Nib_uY9z5BfY0hzi # Split 3 model
 elif [[ $SPLITNO == "s4" ]];then
   echo "Downloading Split 4 BHRL pretrained model"
-  gdown https://drive.google.com/uc?id=1sVSDI0aXNIPTgOPFDhpndcTwRR6mSlSU # Split 4 model
+  gdown https://drive.google.com/uc?id=1iFmAkecLDCjJ_bFFSyn_orpHdQXyhv2g # Split 4 model
 elif [[ $SPLITNO == "vot" ]];then
   echo "Downloading VOT BHRL pretrained model"
-  gdown https://drive.google.com/uc?id=1TdmOfNoAYe9HTXozeBsG9inwyUS2J-az # VOT     model
+  gdown https://drive.google.com/uc?id=12mNpnkLe8Or32GpntLMEL8HCI9nNi4KM # VOT     model
 fi
 
 # Download zip files
 # TIP gdown https://drive.google.com/uc?id=[ID]
 echo "Downloading BHRL.zip"
-gdown https://drive.google.com/uc?id=18XrJsSBGeVt5VDRaL2t7kFp_HqDMDjMR # BHRL.zip
+gdown https://drive.google.com/uc?id=16yqkrI7sSe0xViG-q8RPyOrGoqtzhweB # BHRL.zip
 echo "Downloading artoxor_annotation.zip"
-gdown https://drive.google.com/uc?id=17Y-todgImNTwR-ixqJTgbCw5k9r_XI11 # artoxor_annotation.zip
+gdown https://drive.google.com/uc?id=1ZAFLeIer2DgQST2YhdYqlU9naHLL_cMU # artoxor_annotation.zip
 echo "Downloading dior_annotation.zip"
-gdown https://drive.google.com/uc?id=1d45B4APTjyJV7Ha5YhrBIM1JK1K5bTUR # dior_annotation.zip
+gdown https://drive.google.com/uc?id=1ow16HCWG94KeCagIG_KRu7WlfhREVwBU # dior_annotation.zip
 echo "Downloading uodd_annotation.zip"
-gdown https://drive.google.com/uc?id=1gS5xAm8EjDsjnO0a73Gb4xVYL_xapSit # uodd_annotation.zip
+gdown https://drive.google.com/uc?id=1jk1HMBEyxhUKekhMAZbg_wZc01QyEcvj # uodd_annotation.zip
 echo "Downloading vot_annotation.zip"
-gdown https://drive.google.com/uc?id=1zx4pGQ3B2_m_MYj1eVfyNMY71CCgIBYq # vot_annotation.zip
-echo "Downloading BHRL_LATEST.ipynb"
-gdown https://drive.google.com/uc?id=1cKGM971zQUk-UyUhAPqHpys3kQTOw3Jz # BHRL_LATEST.ipynb
+gdown https://drive.google.com/uc?id=1ihE3122vxbZ6O16TQ1egaF_6PgeBBAGd # vot_annotation.zip
 # TODO download DIOR/ArTaxOr/UODD dataset images (no need to download vot)
 
 # Unzip them
