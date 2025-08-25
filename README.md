@@ -1,5 +1,5 @@
 # CD-BHRL-OTU: Cross-domain one-shot video object detection
-
+This repository is an official implementation of the EUSIPCO 2025 paper "[_Cross-domain one-shot video object detection_](https://cmsworkshops.com/EUSIPCO2025/view_paper.php?PaperNum=1825)".
 ## Installation
 - Create a Cuda enabled VM or Dockerized environment (Ubuntu 22.04 LTS is recommended)
 - Install ipython package
@@ -17,7 +17,7 @@ cd /root
 chmod +x setup.sh
 ./setup.sh
 ```
-> **_Note:_** Setup script automatically downloads necessary packages and our modified version of [BHRL](https://github.com/msprITU/CD-BHRL-OTU-CORE)
+> **_Note:_** Setup script automatically downloads necessary packages and our modified version of [BHRL](https://github.com/msprITU/CD-BHRL-OTU-CORE) _([Reference project](https://github.com/hero-y/BHRL))_
 - Install dependencies with
 ```bash
 ipython 2-InstallDependencies.ipy
@@ -30,11 +30,11 @@ ipython 2-InstallDependencies.ipy
 
 | Model | Download Link |
 |------------------|---------------|
-| Split 1 | [Download](https://drive.google.com/uc?id=1tl7O7m7SAaBZIi0u-z4uFUNFwUtoVm3o) |
-| Split 2 | [Download](https://drive.google.com/uc?id=1D-PUQPH5NELTf52xUpGXO5jfxpa76pc8) |
-| Split 3 | [Download](https://drive.google.com/uc?id=1GRyXANf60WaJp7UMqTEAGnUxftm_QLrG) |
-| Split 4 | [Download](https://drive.google.com/uc?id=1sVSDI0aXNIPTgOPFDhpndcTwRR6mSlSU) |
-| VOT | [Download](https://drive.google.com/uc?id=1TdmOfNoAYe9HTXozeBsG9inwyUS2J-az) |
+| Split 1 | [Download](https://drive.google.com/uc?id=1r1x1vRdehtpjonsvNysRy2SL3b074Vik) |
+| Split 2 | [Download](https://drive.google.com/uc?id=1ldKw9BJArnqEKTH-caNFVovKUKIHSh6y) |
+| Split 3 | [Download](https://drive.google.com/uc?id=1JBgrmgw1hFji4jB-Nib_uY9z5BfY0hzi) |
+| Split 4 | [Download](https://drive.google.com/uc?id=1iFmAkecLDCjJ_bFFSyn_orpHdQXyhv2g) |
+| VOT     | [Download](https://drive.google.com/uc?id=12mNpnkLe8Or32GpntLMEL8HCI9nNi4KM) |
 
 ---
 
@@ -42,10 +42,10 @@ ipython 2-InstallDependencies.ipy
 The following dataset annotations have been made compatible with BHRL.
 | Dataset | Download Link |
 |----------------------|---------------|
-| Artoxor Annotations  | [Download](https://drive.google.com/uc?id=17Y-todgImNTwR-ixqJTgbCw5k9r_XI11) |
-| DIOR Annotations     | [Download](https://drive.google.com/uc?id=1d45B4APTjyJV7Ha5YhrBIM1JK1K5bTUR) |
-| UODD Annotations     | [Download](https://drive.google.com/uc?id=1gS5xAm8EjDsjnO0a73Gb4xVYL_xapSit) |
-| VOT Annotations      | [Download](https://drive.google.com/uc?id=1zx4pGQ3B2_m_MYj1eVfyNMY71CCgIBYq) |
+| Artoxor Annotations  | [Download](https://drive.google.com/uc?id=1ZAFLeIer2DgQST2YhdYqlU9naHLL_cMU) |
+| DIOR Annotations     | [Download](https://drive.google.com/uc?id=1ow16HCWG94KeCagIG_KRu7WlfhREVwBU) |
+| UODD Annotations     | [Download](https://drive.google.com/uc?id=1jk1HMBEyxhUKekhMAZbg_wZc01QyEcvj) |
+| VOT Annotations      | [Download](https://drive.google.com/uc?id=1ihE3122vxbZ6O16TQ1egaF_6PgeBBAGd) |
 
 ## Dataset Preparation 
 ### VOT Dataset Download
